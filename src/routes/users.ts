@@ -80,5 +80,20 @@ const updateUserRoute = async (req: http.IncomingMessage, res: http.ServerRespon
 };
 
 const deleteUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
-  
+  const path = extractPath(req.url!);
+  const userId = path.split("/")[3]
+  let user = null;
+  try {
+    user = deleteUser(userId);
+  } catch (err) {
+    const error = err as Error;
+    return res
+      .writeHead(400, {"Content-Type": "application/json"})
+      .end(JSON.stringify({
+        "message": error.message,
+      }));
+  }
+  return res
+    .writeHead(204, {"Content-Type": "application/json"})
+    .end();
 };
