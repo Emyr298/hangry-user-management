@@ -1,13 +1,15 @@
-import { UserForm } from "../forms/user-form";
-import { User } from "../models/user";
-import { v4 as uuid } from "uuid";
+import { UserForm } from '../forms/user-form';
+import { User } from '../models/user';
+import { v4 as uuid } from 'uuid';
 
-const users: User[] = [{
-  id: "ASDASD",
-  name: "ASDASDASD",
-  email: "asd@asd.com",
-  birthdate: new Date(),
-}]
+const users: User[] = [
+  {
+    id: 'ASDASD',
+    name: 'ASDASDASD',
+    email: 'asd@asd.com',
+    birthdate: new Date(),
+  },
+];
 
 export const getAllUsers = () => {
   return users;
@@ -16,18 +18,18 @@ export const getAllUsers = () => {
 export const getUserById = (userId: string) => {
   const user = users.find((user) => {
     return user.id === userId;
-  })
+  });
   if (!user) {
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
   return user;
 };
 
 export const createUser = (user: UserForm) => {
-  const id = uuid()
+  const id = uuid();
   users.push({
     id: id,
-    ...user
+    ...user,
   });
 };
 
@@ -36,7 +38,7 @@ export const deleteUser = (userId: string) => {
     return user.id === userId;
   });
   if (userIdx < 0) {
-    throw new Error("user not found");
+    throw new Error('user not found');
   }
   users.splice(userIdx, 1);
 };

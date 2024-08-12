@@ -32,5 +32,6 @@ export default [...compat.extends(
 
     rules: {
         "prettier/prettier": "error",
+        "@typescript-eslint/no-explicit-any": "off",
     },
 }];
