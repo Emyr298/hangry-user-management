@@ -1,6 +1,6 @@
 import http from 'http';
 import { extractPath, getJsonBody } from '../utils';
-import { createUser, getAllUsers } from '../repository/users';
+import { createUser, deleteUser, getAllUsers, getUserById } from '../repository/users';
 import { validateUserForm } from '../forms/user-form';
 
 export const handleUsersRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
@@ -55,7 +55,24 @@ const createUserRoute = async (req: http.IncomingMessage, res: http.ServerRespon
 };
 
 const getUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
-  
+  const path = extractPath(req.url!);
+  const userId = path.split("/")[3]
+  let user = null;
+  try {
+    user = getUserById(userId);
+  } catch (err) {
+    const error = err as Error;
+    return res
+      .writeHead(400, {"Content-Type": "application/json"})
+      .end(JSON.stringify({
+        "message": error.message,
+      }));
+  }
+  return res
+    .writeHead(200, {"Content-Type": "application/json"})
+    .end(JSON.stringify({
+      "user": user,
+    }));
 };
 
 const updateUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
