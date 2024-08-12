@@ -26,5 +26,5 @@ function getRequestBody(req: http.IncomingMessage): Promise<string> {
 };
 
 export const getJsonBody = async (req: http.IncomingMessage) => {
-  return await getRequestBody(req);
+  return JSON.parse(await getRequestBody(req));
 };
