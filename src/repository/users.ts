@@ -34,11 +34,25 @@ export const createUser = (user: UserForm) => {
 };
 
 export const deleteUser = (userId: string) => {
+  const userIdx = getUserIndex(userId);
+  users.splice(userIdx, 1);
+};
+
+export const updateUser = (userId: string, userData: UserForm) => {
+  const userIdx = getUserIndex(userId);
+  const oldUser = users[userIdx];
+  users[userIdx] = {
+    id: oldUser.id,
+    ...userData,
+  }
+};
+
+const getUserIndex = (userId: string) => {
   const userIdx = users.findIndex((user) => {
     return user.id === userId;
   });
   if (userIdx < 0) {
     throw new Error('user not found');
   }
-  users.splice(userIdx, 1);
+  return userIdx;
 };

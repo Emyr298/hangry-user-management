@@ -5,6 +5,7 @@ import {
   deleteUser,
   getAllUsers,
   getUserById,
+  updateUser,
 } from '../repository/users';
 import { validateUserForm } from '../forms/user-form';
 
@@ -104,7 +105,29 @@ const getUserRoute = async (
 const updateUserRoute = async (
   req: http.IncomingMessage,
   res: http.ServerResponse,
-) => {};
+) => {
+  const path = extractPath(req.url!);
+  const userId = path.split('/')[3];
+  
+  const body = await getJsonBody(req);
+  
+  try {
+    const newData = validateUserForm(body);
+    updateUser(userId, newData);
+  } catch (err) {
+    const error = err as Error;
+    return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
+      JSON.stringify({
+        message: error.message,
+      }),
+    );
+  }
+  return res.writeHead(200, { 'Content-Type': 'application/json' }).end(
+    JSON.stringify({
+      message: 'user updated successfully',
+    }),
+  );
+};
 
 const deleteUserRoute = async (
   req: http.IncomingMessage,
