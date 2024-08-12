@@ -1,8 +1,13 @@
-import { UserForm } from "../models/forms/user-form";
+import { UserForm } from "../forms/user-form";
 import { User } from "../models/user";
 import { v4 as uuid } from "uuid";
 
-const users: User[] = []
+const users: User[] = [{
+  id: "ASDASD",
+  name: "ASDASDASD",
+  email: "asd@asd.com",
+  birthdate: new Date(),
+}]
 
 export const getAllUsers = () => {
   return users;
