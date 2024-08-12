@@ -1,20 +1,20 @@
 import http from 'http';
-import { extractPath } from '../utils';
+import { extractPath, getJsonBody } from '../utils';
 import { getAllUsers } from '../repository/users';
 
-export const handleUsersRoute = (req: http.IncomingMessage, res: http.ServerResponse) => {
+export const handleUsersRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   const path = extractPath(req.url!);
   
   if (path.match(/^\/api\/users$/) && req.method! == 'GET') {
-    return getAllUsersRoute(req, res);
+    return await getAllUsersRoute(req, res);
   } else if (path.match(/^\/api\/users$/) && req.method! == 'POST') {
-    return createUserRoute(req, res);
+    return await createUserRoute(req, res);
   } else if (path.match(/^\/api\/users\/[a-zA-Z0-9-]+$/) && req.method! == 'GET') {
-    return getUserRoute(req, res);
+    return await getUserRoute(req, res);
   } else if (path.match(/^\/api\/users\/[a-zA-Z0-9-]+$/) && req.method! == "PUT") {
-    return updateUserRoute(req, res);
+    return await updateUserRoute(req, res);
   } else if (path.match(/^\/api\/users\/[a-zA-Z0-9-]+$/) && req.method! == "DELETE") {
-    return deleteUserRoute(req, res);
+    return await deleteUserRoute(req, res);
   }
   
   return res
@@ -24,7 +24,7 @@ export const handleUsersRoute = (req: http.IncomingMessage, res: http.ServerResp
     }));
 };
 
-const getAllUsersRoute = (req: http.IncomingMessage, res: http.ServerResponse) => {
+const getAllUsersRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   return res
     .writeHead(200, {"Content-Type": "application/json"})
     .end(JSON.stringify({
@@ -32,18 +32,18 @@ const getAllUsersRoute = (req: http.IncomingMessage, res: http.ServerResponse) =
     }));
 };
 
-const createUserRoute = (req: http.IncomingMessage, res: http.ServerResponse) => {
+const createUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   
 };
 
-const getUserRoute = (req: http.IncomingMessage, res: http.ServerResponse) => {
+const getUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   
 };
 
-const updateUserRoute = (req: http.IncomingMessage, res: http.ServerResponse) => {
+const updateUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   
 };
 
-const deleteUserRoute = (req: http.IncomingMessage, res: http.ServerResponse) => {
+const deleteUserRoute = async (req: http.IncomingMessage, res: http.ServerResponse) => {
   
 };
