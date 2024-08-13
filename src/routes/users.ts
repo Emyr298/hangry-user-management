@@ -56,20 +56,23 @@ const createUserRoute = async (
   res: http.ServerResponse,
 ) => {
   const body = await getJsonBody(req);
-  let newUser = null;
   try {
-    newUser = validateUserForm(body);
+    const userData = validateUserForm(body);
+    const user = await createUser(userData);
+    return jsonResponse(res, 201, {
+      message: 'user created successfully',
+      user: user,
+    });
   } catch (err) {
     const error = err as Error;
+    let errorMessage = 'cannot save data to database';
+    if (error.message.includes("duplicate")) {
+      errorMessage = 'email is already registered';
+    }
     return jsonResponse(res, 400, {
-      message: error.message,
+      message: errorMessage,
     });
   }
-  const user = await createUser(newUser);
-  return jsonResponse(res, 201, {
-    message: 'user created successfully',
-    user: user,
-  });
 };
 
 const getUserRoute = async (
@@ -101,20 +104,23 @@ const updateUserRoute = async (
 
   const body = await getJsonBody(req);
 
-  let user = null;
   try {
-    const newData = validateUserForm(body);
-    user = await updateUser(userId, newData);
+    const userData = validateUserForm(body);
+    const user = await updateUser(userId, userData);
+    return jsonResponse(res, 200, {
+      message: 'user updated successfully',
+      user: user,
+    });
   } catch (err) {
     const error = err as Error;
+    let errorMessage = 'cannot save data to database';
+    if (error.message.includes("duplicate")) {
+      errorMessage = 'email is already registered';
+    }
     return jsonResponse(res, 400, {
-      message: error.message,
+      message: errorMessage,
     });
   }
-  return jsonResponse(res, 200, {
-    message: 'user updated successfully',
-    user: user,
-  });
 };
 
 const deleteUserRoute = async (
