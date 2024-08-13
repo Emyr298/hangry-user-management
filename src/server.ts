@@ -9,7 +9,7 @@ const port = 3000;
 const server = http.createServer(async (req, res) => {
   if (!req.url || !req.method) {
     return jsonResponse(res, 400, {
-      message: 'invalid url',
+      error: 'invalid url',
     });
   }
 
@@ -19,12 +19,12 @@ const server = http.createServer(async (req, res) => {
     }
   } catch {
     return jsonResponse(res, 500, {
-      message: 'internal server error',
+      error: 'internal server error',
     });
   }
   
   return jsonResponse(res, 400, {
-    message: 'invalid url',
+    error: 'invalid url',
   });
 });
 

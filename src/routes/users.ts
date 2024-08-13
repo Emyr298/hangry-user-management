@@ -38,7 +38,7 @@ export const handleUsersRoute = async (
   }
   
   return jsonResponse(res, 400, {
-    message: 'invalid route',
+    error: 'invalid route',
   });
 };
 
@@ -65,12 +65,12 @@ const createUserRoute = async (
     });
   } catch (err) {
     const error = err as Error;
-    let errorMessage = 'cannot save data to database';
+    let errorMessage = error.message;
     if (error.message.includes("duplicate")) {
       errorMessage = 'email is already registered';
     }
     return jsonResponse(res, 400, {
-      message: errorMessage,
+      error: errorMessage,
     });
   }
 };
@@ -87,7 +87,7 @@ const getUserRoute = async (
   } catch (err) {
     const error = err as Error;
     return jsonResponse(res, 400, {
-      message: error.message,
+      error: error.message,
     });
   }
   return jsonResponse(res, 200, {
@@ -113,12 +113,12 @@ const updateUserRoute = async (
     });
   } catch (err) {
     const error = err as Error;
-    let errorMessage = 'cannot save data to database';
+    let errorMessage = error.message;
     if (error.message.includes("duplicate")) {
       errorMessage = 'email is already registered';
     }
     return jsonResponse(res, 400, {
-      message: errorMessage,
+      error: errorMessage,
     });
   }
 };
@@ -134,7 +134,7 @@ const deleteUserRoute = async (
   } catch (err) {
     const error = err as Error;
     return jsonResponse(res, 400, {
-      message: error.message,
+      error: error.message,
     });
   }
   return jsonResponse(res, 204);
