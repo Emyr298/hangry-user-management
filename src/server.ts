@@ -22,7 +22,7 @@ const server = http.createServer(async (req, res) => {
       error: 'internal server error',
     });
   }
-  
+
   return jsonResponse(res, 400, {
     error: 'invalid url',
   });

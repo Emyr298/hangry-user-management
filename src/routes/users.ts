@@ -36,7 +36,7 @@ export const handleUsersRoute = async (
   ) {
     return await deleteUserRoute(req, res);
   }
-  
+
   return jsonResponse(res, 400, {
     error: 'invalid route',
   });
@@ -66,7 +66,7 @@ const createUserRoute = async (
   } catch (err) {
     const error = err as Error;
     let errorMessage = error.message;
-    if (error.message.includes("duplicate")) {
+    if (error.message.includes('duplicate')) {
       errorMessage = 'email is already registered';
     }
     return jsonResponse(res, 400, {
@@ -114,7 +114,7 @@ const updateUserRoute = async (
   } catch (err) {
     const error = err as Error;
     let errorMessage = error.message;
-    if (error.message.includes("duplicate")) {
+    if (error.message.includes('duplicate')) {
       errorMessage = 'email is already registered';
     }
     return jsonResponse(res, 400, {

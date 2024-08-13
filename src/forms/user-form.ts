@@ -1,4 +1,4 @@
-import { validateDateString } from "../utils/date";
+import { validateDateString } from '../utils/date';
 
 export interface UserForm {
   name: string;
@@ -10,7 +10,7 @@ export const validateUserForm = (obj: any): UserForm => {
   if (typeof obj !== 'object') {
     throw new Error('invalid object');
   }
-  
+
   const errors = [];
   if (!obj.name || typeof obj.name !== 'string') {
     errors.push('name must be a string');
@@ -30,7 +30,7 @@ export const validateUserForm = (obj: any): UserForm => {
     errors.push('birthdate must be in a date format');
   }
   if (errors.length > 0) {
-    throw new Error(errors.join(", "));
+    throw new Error(errors.join(', '));
   }
   return obj as UserForm;
 };
