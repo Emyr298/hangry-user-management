@@ -3,15 +3,14 @@ import './database';
 
 import http from 'http';
 import { handleUsersRoute } from './routes/users';
+import { jsonResponse } from './utils/responses';
 
 const port = 3000;
 const server = http.createServer(async (req, res) => {
   if (!req.url || !req.method) {
-    return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-      JSON.stringify({
-        message: 'invalid url',
-      }),
-    );
+    return jsonResponse(res, 400, {
+      message: 'invalid url',
+    });
   }
 
   try {
@@ -19,18 +18,14 @@ const server = http.createServer(async (req, res) => {
       return await handleUsersRoute(req, res);
     }
   } catch {
-    return res.writeHead(500, { 'Content-Type': 'application/json' }).end(
-      JSON.stringify({
-        message: 'internal server error',
-      }),
-    );
+    return jsonResponse(res, 500, {
+      message: 'internal server error',
+    });
   }
-
-  return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-    JSON.stringify({
-      message: 'invalid url',
-    }),
-  );
+  
+  return jsonResponse(res, 400, {
+    message: 'invalid url',
+  });
 });
 
 server.listen(port, () => {

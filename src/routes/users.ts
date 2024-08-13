@@ -1,5 +1,5 @@
 import http from 'http';
-import { extractPath, getJsonBody } from '../utils';
+import { extractPath, getJsonBody } from '../utils/requests';
 import {
   createUser,
   deleteUser,
@@ -8,6 +8,7 @@ import {
   updateUser,
 } from '../services/users';
 import { validateUserForm } from '../forms/user-form';
+import { jsonResponse } from '../utils/responses';
 
 export const handleUsersRoute = async (
   req: http.IncomingMessage,
@@ -35,23 +36,19 @@ export const handleUsersRoute = async (
   ) {
     return await deleteUserRoute(req, res);
   }
-
-  return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-    JSON.stringify({
-      message: 'invalid route',
-    }),
-  );
+  
+  return jsonResponse(res, 400, {
+    message: 'invalid route',
+  });
 };
 
 const getAllUsersRoute = async (
   req: http.IncomingMessage,
   res: http.ServerResponse,
 ) => {
-  return res.writeHead(200, { 'Content-Type': 'application/json' }).end(
-    JSON.stringify({
-      users: await getAllUsers(),
-    }),
-  );
+  return jsonResponse(res, 200, {
+    users: await getAllUsers(),
+  });
 };
 
 const createUserRoute = async (
@@ -64,19 +61,15 @@ const createUserRoute = async (
     newUser = validateUserForm(body);
   } catch (err) {
     const error = err as Error;
-    return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-      JSON.stringify({
-        message: error.message,
-      }),
-    );
+    return jsonResponse(res, 400, {
+      message: error.message,
+    });
   }
   const user = await createUser(newUser);
-  return res.writeHead(201, { 'Content-Type': 'application/json' }).end(
-    JSON.stringify({
-      message: 'user created successfully',
-      user: user,
-    }),
-  );
+  return jsonResponse(res, 201, {
+    message: 'user created successfully',
+    user: user,
+  });
 };
 
 const getUserRoute = async (
@@ -90,17 +83,13 @@ const getUserRoute = async (
     user = await getUserById(userId);
   } catch (err) {
     const error = err as Error;
-    return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-      JSON.stringify({
-        message: error.message,
-      }),
-    );
+    return jsonResponse(res, 400, {
+      message: error.message,
+    });
   }
-  return res.writeHead(200, { 'Content-Type': 'application/json' }).end(
-    JSON.stringify({
-      user: user,
-    }),
-  );
+  return jsonResponse(res, 200, {
+    user: user,
+  });
 };
 
 const updateUserRoute = async (
@@ -118,18 +107,14 @@ const updateUserRoute = async (
     user = await updateUser(userId, newData);
   } catch (err) {
     const error = err as Error;
-    return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-      JSON.stringify({
-        message: error.message,
-      }),
-    );
+    return jsonResponse(res, 400, {
+      message: error.message,
+    });
   }
-  return res.writeHead(200, { 'Content-Type': 'application/json' }).end(
-    JSON.stringify({
-      message: 'user updated successfully',
-      user: user,
-    }),
-  );
+  return jsonResponse(res, 200, {
+    message: 'user updated successfully',
+    user: user,
+  });
 };
 
 const deleteUserRoute = async (
@@ -142,11 +127,9 @@ const deleteUserRoute = async (
     await deleteUser(userId);
   } catch (err) {
     const error = err as Error;
-    return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
-      JSON.stringify({
-        message: error.message,
-      }),
-    );
+    return jsonResponse(res, 400, {
+      message: error.message,
+    });
   }
-  return res.writeHead(204, { 'Content-Type': 'application/json' }).end();
+  return jsonResponse(res, 204);
 };
