@@ -6,7 +6,7 @@ import {
   getAllUsers,
   getUserById,
   updateUser,
-} from '../repository/users';
+} from '../services/users';
 import { validateUserForm } from '../forms/user-form';
 
 export const handleUsersRoute = async (
@@ -49,7 +49,7 @@ const getAllUsersRoute = async (
 ) => {
   return res.writeHead(200, { 'Content-Type': 'application/json' }).end(
     JSON.stringify({
-      users: getAllUsers(),
+      users: await getAllUsers(),
     }),
   );
 };
@@ -70,10 +70,11 @@ const createUserRoute = async (
       }),
     );
   }
-  createUser(newUser);
+  const user = await createUser(newUser);
   return res.writeHead(201, { 'Content-Type': 'application/json' }).end(
     JSON.stringify({
       message: 'user created successfully',
+      user: user,
     }),
   );
 };
@@ -86,7 +87,7 @@ const getUserRoute = async (
   const userId = path.split('/')[3];
   let user = null;
   try {
-    user = getUserById(userId);
+    user = await getUserById(userId);
   } catch (err) {
     const error = err as Error;
     return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
@@ -108,12 +109,13 @@ const updateUserRoute = async (
 ) => {
   const path = extractPath(req.url!);
   const userId = path.split('/')[3];
-  
+
   const body = await getJsonBody(req);
-  
+
+  let user = null;
   try {
     const newData = validateUserForm(body);
-    updateUser(userId, newData);
+    user = await updateUser(userId, newData);
   } catch (err) {
     const error = err as Error;
     return res.writeHead(400, { 'Content-Type': 'application/json' }).end(
@@ -125,6 +127,7 @@ const updateUserRoute = async (
   return res.writeHead(200, { 'Content-Type': 'application/json' }).end(
     JSON.stringify({
       message: 'user updated successfully',
+      user: user,
     }),
   );
 };
@@ -136,7 +139,7 @@ const deleteUserRoute = async (
   const path = extractPath(req.url!);
   const userId = path.split('/')[3];
   try {
-    deleteUser(userId);
+    await deleteUser(userId);
   } catch (err) {
     const error = err as Error;
     return res.writeHead(400, { 'Content-Type': 'application/json' }).end(

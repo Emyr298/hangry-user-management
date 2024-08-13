@@ -1,3 +1,6 @@
+import 'dotenv/config';
+import './database';
+
 import http from 'http';
 import { handleUsersRoute } from './routes/users';
 
