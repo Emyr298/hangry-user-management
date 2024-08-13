@@ -8,22 +8,27 @@ export const validateUserForm = (obj: any): UserForm => {
   if (typeof obj !== 'object') {
     throw new Error('invalid object');
   }
+  
+  const errors = [];
   if (!obj.name || typeof obj.name !== 'string') {
-    throw new Error('name must be a string');
+    errors.push('name must be a string');
   }
   if (
     !obj.email ||
     typeof obj.email !== 'string' ||
     !obj.email.match(/^[^@]+@[^@]+\.[^@]+$/)
   ) {
-    throw new Error('email must be in email format');
+    errors.push('email is in invalid format');
   }
   if (
     !obj.birthdate ||
     typeof obj.birthdate !== 'string' ||
     isNaN(Number(new Date(obj.birthdate)))
   ) {
-    throw new Error('birthdate must be in a date format');
+    errors.push('birthdate must be in a date format');
+  }
+  if (errors.length > 0) {
+    throw new Error(errors.join(", "));
   }
   return {
     name: obj.name,
