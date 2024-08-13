@@ -11,6 +11,6 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ type: 'timestamp' })
-  birthdate: Date;
+  @Column({ type: 'date' })
+  birthdate: string;
 }

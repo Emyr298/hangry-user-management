@@ -1,7 +1,9 @@
+import { validateDateString } from "../utils/date";
+
 export interface UserForm {
   name: string;
   email: string;
-  birthdate: Date;
+  birthdate: string;
 }
 
 export const validateUserForm = (obj: any): UserForm => {
@@ -23,16 +25,12 @@ export const validateUserForm = (obj: any): UserForm => {
   if (
     !obj.birthdate ||
     typeof obj.birthdate !== 'string' ||
-    isNaN(Number(new Date(obj.birthdate)))
+    !validateDateString(obj.birthdate)
   ) {
     errors.push('birthdate must be in a date format');
   }
   if (errors.length > 0) {
     throw new Error(errors.join(", "));
   }
-  return {
-    name: obj.name,
-    email: obj.email,
-    birthdate: new Date(obj.birthdate),
-  };
+  return obj as UserForm;
 };
