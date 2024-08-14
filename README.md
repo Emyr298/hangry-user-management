@@ -1,6 +1,9 @@
 # Hangry User Management
 User management API for Hangry recruitment test made in Node.js.
 
+## Deployment
+http://34.123.246.143:3000
+
 ## Requirements
 - Node.js
 - PostgreSQL database
