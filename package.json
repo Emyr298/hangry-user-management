@@ -4,7 +4,7 @@
   "description": "User management API for Hangry recruitment test.",
   "main": "server.js",
   "scripts": {
-    "start:prod": "ts-node ./server/server.ts",
+    "start:prod": "ts-node ./src/server.ts",
     "start:dev": "nodemon ./src/server.ts",
     "migrations:generate": "typeorm-ts-node-commonjs migration:generate ./src/migrations/migration -d ./src/database.ts",
     "migrations:run": "typeorm-ts-node-commonjs migration:run --dataSource ./src/database.ts",
