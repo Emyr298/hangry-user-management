@@ -2,7 +2,7 @@
 User management API for Hangry recruitment test made in Node.js.
 
 ## Deployment
-http://34.123.246.143:3000
+http://34.123.246.143:3000/api/users
 
 ## Requirements
 - Node.js
