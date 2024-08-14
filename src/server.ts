@@ -24,7 +24,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   return jsonResponse(res, 400, {
-    error: 'invalid url',
+    error: 'Invalid url. User management is located at /api/users. Refer to README.md for API documentations.',
   });
 });
 
