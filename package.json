@@ -7,6 +7,9 @@
     "start:prod": "node ./build/server.js",
     "start:dev": "nodemon ./src/server.ts",
     "build": "tsc",
+    "migrations:generate": "typeorm-ts-node-commonjs migration:generate ./src/migrations/migration -d ./src/database.ts",
+    "migrations:run": "typeorm-ts-node-commonjs migration:run --dataSource ./src/database.ts",
+    "migrations:revert-once": "npx typeorm-ts-node-commonjs migration:revert --dataSource ./src/database.ts",
     "lint": "eslint src",
     "prettier": "prettier --write src"
   },

@@ -5,7 +5,7 @@ User management API for Hangry recruitment test made in Node.js.
 - Node.js
 - PostgreSQL database
 
-## Installation
+## Installation for Development
 After cloning the repository, install required dependencies by running:
 ```
 npm install
@@ -13,10 +13,19 @@ npm install
 
 Create an `.env` file in the root directory that includes:
 - `POSTGRES_URI`: PostgreSQL connection string URI. Example: `postgresql://postgres:postgres@localhost:5432/hangry`.
+- `NODE_ENV`: Environment of the deployment. If the value is `production`, then database schema synchronization is not active, use migrations instead.
 
 You can also look at the example in `.env.example` file.
 
-To run the API, run `npm start:dev`.
+To run the API, run `npm run start:dev`.
+
+## Installation for Production
+The procedures are similar to installation for development, except after setting the `.env`, run migrations on database schema by using:
+```
+npm run migrations:run
+```
+
+To run the API, run `npm run start:prod`
 
 ## API Documentation
 ### User Routes
