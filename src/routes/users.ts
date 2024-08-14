@@ -16,9 +16,9 @@ export const handleUsersRoute = async (
 ) => {
   const path = extractPath(req.url!);
 
-  if (path.match(/^\/api\/users$/) && req.method! == 'GET') {
+  if (path === '/api/users' && req.method! == 'GET') {
     return await getAllUsersRoute(req, res);
-  } else if (path.match(/^\/api\/users$/) && req.method! == 'POST') {
+  } else if (path === '/api/users' && req.method! == 'POST') {
     return await createUserRoute(req, res);
   } else if (
     path.match(/^\/api\/users\/[a-zA-Z0-9-]+$/) &&
