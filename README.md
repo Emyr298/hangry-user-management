@@ -36,30 +36,39 @@ To run the API, run `npm run start:prod`
 {
     "users": [
         {
-            "id": "60161861-632d-45c0-8c56-a373f4f964e6",
-            "name": "123 123",
-            "email": "test@test.com",
-            "birthdate": "2003-01-01"
+            "id": "a3ac4a1d-dcdb-4de5-812f-9feaaec933fd",
+            "name": "Emir Shamsuddin Fadhlurrahman",
+            "email": "emir@asd.com",
+            "birthdate": "2003-02-01"
         },
         {
-            "id": "e6b6832c-15c3-4da2-b10f-2f18f392b2cc",
-            "name": "123 123",
-            "email": "test@test12.com",
-            "birthdate": "2003-12-01"
+            "id": "0f7449df-d88a-4afb-9bf1-91a7b9fe3e1f",
+            "name": "Ahmad Apala",
+            "email": "ahmad@apala.com",
+            "birthdate": "2004-10-01"
         }
     ]
 }
 ```
 
 `POST`: Create a user. Required fields are `name`, `email` (unique), and `birthdate` (in `YYYY-MM-DD` format).
+Example Request:
+```
+{
+    "name": "Emir Shamsuddin Fadhlurrahman",
+    "email": "emir@asd.com",
+    "birthdate": "2003-02-01"
+}
+```
+Example Response:
 ```
 {
     "message": "user created successfully",
     "user": {
-        "name": "123 123",
-        "email": "test@asd.com",
-        "birthdate": "2003-12-01",
-        "id": "f2035465-3c00-4b4b-ad5a-b0f410d7d873"
+        "name": "Emir Shamsuddin Fadhlurrahman",
+        "email": "emir@asd.com",
+        "birthdate": "2003-02-01",
+        "id": "a3ac4a1d-dcdb-4de5-812f-9feaaec933fd"
     }
 }
 ```
@@ -72,23 +81,32 @@ To run the API, run `npm run start:prod`
 ```
 {
     "user": {
-        "id": "60161861-632d-45c0-8c56-a373f4f964e6",
-        "name": "123 123",
-        "email": "test@test.com",
-        "birthdate": "2003-01-01"
+        "id": "a3ac4a1d-dcdb-4de5-812f-9feaaec933fd",
+        "name": "Emir Shamsuddin Fadhlurrahman",
+        "email": "emir@asd.com",
+        "birthdate": "2003-02-01"
     }
 }
 ```
 
 `PUT`: Update the data of a user with id `<user-id>`. Required fields are `name`, `email` (unique), and `birthdate` (in `YYYY-MM-DD` format).
+Example Request:
+```
+{
+    "name": "Emir S.F.",
+    "email": "emir2@example.com",
+    "birthdate": "2003-11-10"
+}
+```
+Example Response:
 ```
 {
     "message": "user updated successfully",
     "user": {
-        "id": "60161861-632d-45c0-8c56-a373f4f964e6",
-        "name": "Testos BaruZ",
-        "email": "test@test2.com",
-        "birthdate": "2003-01-01"
+        "id": "a3ac4a1d-dcdb-4de5-812f-9feaaec933fd",
+        "name": "Emir S.F.",
+        "email": "emir2@example.com",
+        "birthdate": "2003-11-10"
     }
 }
 ```
